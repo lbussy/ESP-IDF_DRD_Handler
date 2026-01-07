@@ -48,12 +48,12 @@ Fix all errors before continuing.
 
 ---
 
-## 4. Test with Staging Registry
+## 6. Publish to the Staging ESP Component Registry
 
 For testing purposes, upload the components to the staging server first.  Login to staging:
 
 ```bash
-compote registry login --profile "staging" --default-namespace lbussy
+compote registry login --profile "staging" --registry-url "https://components-staging.espressif.com" --default-namespace lbussy
 ```
 
 This command will open a browser window where you can authenticate with your GitHub account. After logging in, you’ll be redirected to a page displaying your token. Copy and paste it into the terminal.
@@ -68,23 +68,33 @@ Upload your component to the staging registry by running the following command:
 compote component upload --profile "staging" --name drd_handler
 ```
 
+## 5. Verify Staging Publication
+
+- Search for `lbussy/drd_handler` in the [ESP Component Registry Staging UI](https://components-staging.espressif.com).
+
 To use it in your project, add the registry URL in your manifest:
 
 ```yml
 dependencies:
-  <your_default_namespace>/test_cmp:
-    version: "*"
+  <your_default_namespace>/drd_handler:
+    version: "@X.Y.Z"
     registry_url: https://components-staging.espressif.com
+```
+
+Or via command line:
+
+```bash
+idf.py add-dependency lbussy/drd_handler@X.Y.Z --profile staging
 ```
 
 Test to ensure the publication works properly.
 
-## 5. Publish to the ESP Component Registry
+## 6. Publish to the Production ESP Component Registry
 
 To log in to the registry server, use the following command:
 
 ```bash
-compote registry login --profile "default" --registry-url "https://components.espressif.com" --default-namespace lbussy
+compote registry login --profile "prod" --registry-url "https://components.espressif.com" --default-namespace lbussy
 ```
 
 This command will open a browser window where you can authenticate with your GitHub account. After logging in, you’ll be redirected to a page displaying your token. Copy and paste it into the terminal.
@@ -96,7 +106,7 @@ Passing the `--default-namespace` option is recommended to avoid specifying the 
 After successfully logging in, upload with:
 
 ```bash
-compote component upload --name drd_handler
+compote component upload --profile "prod" --name drd_handler
 ```
 
 Notes:
@@ -106,15 +116,26 @@ Notes:
 
 ---
 
-## 6. Verify publication
+## 6. Verify Prod Publication
 
 - Search for `lbussy/drd_handler` in the ESP Component Registry UI.
 
-Test consuming the release:
+To use it in your project, add the registry URL in your manifest:
+
+```yml
+dependencies:
+  <your_default_namespace>/drd_handler:
+    version: "@X.Y.Z"
+    registry_url: https://components.espressif.com
+```
+
+Or via command line:
 
 ```bash
-idf.py add-dependency "lbussy/drd_handler==X.Y.Z"
+idf.py add-dependency lbussy/drd_handler@X.Y.Z --profile prod
 ```
+
+Test to ensure the publication works properly.
 
 ---
 
