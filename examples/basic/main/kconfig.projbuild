@@ -1,0 +1,24 @@
+menu "DRD handler basic example"
+
+config EXAMPLE_STATUS_LED_GPIO
+    int "Status LED GPIO"
+    range 0 48
+    default 2
+    help
+        GPIO used for the status LED in this example.
+
+config EXAMPLE_BLINK_NORMAL_MS
+    int "Normal-mode blink interval (ms)"
+    range 10 60000
+    default 1000
+    help
+        LED blink period when no double reset is detected.
+
+config EXAMPLE_BLINK_DRD_MS
+    int "Double-reset-mode blink interval (ms)"
+    range 10 60000
+    default 150
+    help
+        LED blink period when a double reset is detected.
+
+endmenu

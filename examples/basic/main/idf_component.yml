@@ -1,0 +1,8 @@
+# IDF Component Manager manifest for the example's "main" component
+
+# If you want the example to use the component from the local repo
+# export DRD_HANDLER_LOCAL_DEV=1
+# And comment the version the example/main/idf_component.yml
+dependencies:
+  #lbussy/drd_handler: "^1.0.0"
+  idf: ">=5.5"

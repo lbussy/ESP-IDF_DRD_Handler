@@ -1,0 +1,61 @@
+menu "Double Reset Detector (DRD) configuration"
+
+choice DRD_BACKEND
+    prompt "DRD backend storage"
+    default DRD_BACKEND_NVS
+    help
+        Select the backend used to persist DRD state across resets.
+
+config DRD_BACKEND_RTC
+    bool "RTC slow memory"
+    help
+        Store DRD state in RTC slow memory.
+        This survives soft resets and normal resets, but not power loss.
+
+config DRD_BACKEND_NVS
+    bool "NVS (non-volatile storage)"
+    help
+        Store DRD state in NVS.
+        This survives all reset types, including power loss.
+
+endchoice
+
+config DRD_SUPPRESS_TOOLING_RESETS
+    bool "Suppress tooling reset reasons"
+    default y
+    help
+        If enabled, tooling-style reset reasons are treated as non-user
+        resets for DRD purposes. This reduces false DRD triggers during
+        flashing and debugging.
+
+        When enabled, these reset reasons do not count as a user reset:
+        - Software reset
+        - USB reset
+        - JTAG reset
+
+config DRD_WINDOW_SECONDS
+    int "Double reset detection window (seconds)"
+    default 8
+    range 1 600
+    help
+        Time window in seconds in which the second reset must occur to
+        count as a double reset.
+
+config DRD_NVS_NAMESPACE
+    string "NVS namespace for DRD"
+    default "drd"
+    depends on DRD_BACKEND_NVS
+
+config DRD_ARM_DELAY_SECONDS
+    int "Delay after boot before arming DRD (seconds)"
+    default 10
+    range 0 600
+    help
+        Number of seconds after boot before DRD is armed in NVS when the
+        firmware is considered dirty or when tooling-style reset reasons
+        are detected.
+
+        This avoids spurious double-reset detections caused by very short
+        boots during flashing. Set to 0 to arm DRD immediately.
+
+endmenu

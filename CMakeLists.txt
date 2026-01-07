@@ -1,0 +1,12 @@
+idf_component_register(
+    SRCS
+        "drd_handler.cpp"
+    INCLUDE_DIRS
+        "include"
+    REQUIRES
+        esp_timer
+    PRIV_REQUIRES
+        esp_app_format
+        esp_system
+        nvs_flash
+)
