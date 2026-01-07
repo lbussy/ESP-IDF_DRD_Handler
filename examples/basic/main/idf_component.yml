@@ -4,5 +4,5 @@
 # export DRD_HANDLER_LOCAL_DEV=1
 # And comment the version the example/main/idf_component.yml
 dependencies:
-  #lbussy/drd_handler: "^1.0.0"
+  lbussy/drd_handler: "^1.0.1"
   idf: ">=5.5"

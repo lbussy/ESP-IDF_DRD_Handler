@@ -2,7 +2,7 @@
 # This file is intended for publishing this component, or for managed builds.
 
 name: "drd_handler"
-version: "1.0.0"
+version: "1.0.1"
 description: "This component detects a double reset (two resets within a short time window) and exposes the result through a small C++ API.  A typical use case is to let an end user double-tap reset to enter a special mode (Wi-Fi provisioning, safe mode, configuration portal)."
 url: "https://github.com/lbussy/ESP-IDF_DRD_Handler"
 repository: "https://github.com/lbussy/ESP-IDF_DRD_Handler.git"
